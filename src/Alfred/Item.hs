@@ -10,7 +10,7 @@ data Item = Item
     { aiName :: T.Text
     , aiUrl :: T.Text
     , aiVisits :: Int
-    }
+    } deriving (Eq, Show)
 
 instance ToNamedRecord Item where
     toNamedRecord (Item name url visits) =

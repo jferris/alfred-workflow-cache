@@ -1,0 +1,24 @@
+machine:
+  pre:
+    # https://github.com/commercialhaskell/stack/issues/1658
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 20
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 20
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 10
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 10
+  environment:
+    GOOGLE_OAUTH_CLIENT_ID: x
+    GOOGLE_OAUTH_CLIENT_SECRET: x
+
+dependencies:
+  cache_directories:
+    - "~/.stack"
+  pre:
+    - wget https://github.com/commercialhaskell/stack/releases/download/v1.0.4/stack-1.0.4-linux-x86_64.tar.gz -O /tmp/stack.tar.gz
+    - tar xvzOf /tmp/stack.tar.gz stack-1.0.4-linux-x86_64/stack > /tmp/stack
+    - chmod +x /tmp/stack && sudo mv /tmp/stack /usr/bin/stack
+  override:
+    - stack setup
+
+test:
+  override:
+    - stack test
